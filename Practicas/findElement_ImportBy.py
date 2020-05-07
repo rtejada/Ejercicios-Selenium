@@ -13,7 +13,7 @@ class MyTestCase(unittest.TestCase):
         options.add_argument('--disable-gpu')  # Last I checked this was necessary.
 
         self.driver = webdriver.Chrome(options=options)
-        self.driver.get('http://www.goodstartbook.com/pruebas/index.html')
+        self.driver.get('http://www.goodstartbook.com/pruebas/nuevaPagina.html')
 
     def test_element_Xpath(self):
         element = self.driver.find_element(By.XPATH, '//*[@id="noImportante"]')
