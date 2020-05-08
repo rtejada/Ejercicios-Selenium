@@ -33,9 +33,9 @@ class ChangeWindow(unittest.TestCase):
 
         for handle in all_handles:
             if handle != actual_handle:
-                self.driver.switch_to_window(handle)
+                self.driver.switch_to_window(handle) #cambiarnos a la nueva ventana
 
-        element = self.driver.find_elements_by_id('Segundo')
+        element = self.driver.find_element_by_id('Segundo')
         if element is not None:
             element.send_keys('Juan')
         time.sleep(3)
