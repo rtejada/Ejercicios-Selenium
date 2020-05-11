@@ -26,6 +26,7 @@ class GetAttributeText(unittest.TestCase):
             value_atrib = option2.get_attribute('class')
             print('Clase:', value_atrib)
 
+
     def tearDown(self):
         self.driver.quit()
 
