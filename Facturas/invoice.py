@@ -1,3 +1,4 @@
+
 import unittest
 import time
 from selenium import webdriver
@@ -154,18 +155,30 @@ class InsertDates(unittest.TestCase):
                 add = self.driver.find_element(By.XPATH, '//*[@id="invoice-item-add"]')
                 add.click()
 
-    def test_import(self):
         type_iva = self.driver.find_element(By.CSS_SELECTOR, ".invoice-tax-type-input .Select-arrow")
         type_iva.click()
         element = self.driver.find_element(By.ID, "invoice-tax-rate")
-        actions = ActionChains(type_iva)
+        actions = ActionChains(self.driver)
         actions.move_to_element(element).release().perform()
 
-        name = self.driver.find_element(By.ID, 'invoice-tax-label')
-        name.click()
-        name.send_keys('iva')
+        self.driver.execute_script("document.getElementById('invoice-tax-rate').value = '21.000%'")
+        time.sleep(1)
+        #porcent_iva = int(porcent_iva)
 
-        time.sleep(5)
+        subtotal = self.driver.find_element_by_css_selector(".invoice-summary-subtotal .localized-number")
+        #iva = self.driver.find_element_by_css_selector(".invoice-summary-tax .localized-number")
+        #total = self.driver.find_element_by_xpath("//div[@data-selector='invoice-total']/div//span[@class='localized-number']")
+        balance_due = self.driver.find_element_by_css_selector(".invoice-summary-balance .localized-number")
+
+        subtotal = subtotal.text
+        sub_total = subtotal[1:-1]
+        balance = balance_due.text
+        balance_due = balance[1:-1]
+        sub_total = float(sub_total)
+        balance_due = float(balance_due)
+
+        if balance_due == total_price and sub_total == total_price:
+            print('OK')
 
     def tearDown(self):
         self.driver.quit()

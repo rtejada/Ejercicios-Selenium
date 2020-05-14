@@ -10,3 +10,7 @@ for description in details:
 
 print('Importe total a pagar:', total_price)
 
+iva = 21
+importe_iva = total_price * iva / 100
+print(importe_iva)
+

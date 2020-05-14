@@ -61,12 +61,39 @@ class InsertDates(unittest.TestCase):
         actions = ActionChains(self.driver)
         actions.move_to_element(element).release().perform()
 
-        self.driver.execute_script("document.getElementById('invoice-tax-rate').value = '21.000%'")
+        porcent_iva = self.driver.execute_script("document.getElementById('invoice-tax-rate').value = '21.000%'")
+        time.sleep(1)
+        porcent_iva = 21
+
+        subtotal = self.driver.find_element_by_css_selector(".invoice-summary-subtotal .localized-number")
+        #iva = self.driver.find_element_by_css_selector(".invoice-summary-tax .localized-number")
+        #total = self.driver.find_element_by_xpath("//div[@data-selector='invoice-total']/div//span[@class='localized-number']")
+        balance_due = self.driver.find_element_by_css_selector(".invoice-summary-balance .localized-number")
+
+        subtotal = subtotal.text
+        sub_total = subtotal[1:-1]
+        balance = balance_due.text
+        balanceDue = balance[1:-1]
+        sub_total = int(sub_total)
+        balanceDue = int(balanceDue)
+
+
+
+
+        '''
+        discount = self.driver.find_element(By.CSS_SELECTOR, ".invoice-discount-type-input .Select-arrow-zone")
+        discount.click()
+        element = self.driver.find_element(By.CSS_SELECTOR, "h4:nth-child(7)")
+        actions = ActionChains(discount)
+        actions.move_to_element(element).release().perform()
+       
+        self.driver.execute_script("document.getElementById('invoice-discount-percent').value = '10.00%'")
         time.sleep(1000)
+        '''
 
         print_invoice = self.driver.find_element(By.CSS_SELECTOR, ".btn-print > span")
         print_invoice.click()
-        time.sleep(1)
+        time.sleep(10)
 
     def tearDown(self):
         self.driver.quit()
