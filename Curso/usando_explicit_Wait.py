@@ -23,7 +23,7 @@ class UsingExplicitWait(unittest.TestCase):
 
         except:
 
-            print("No existe tag culo")
+            print("No existe tag p")
 
         finally:
 
