@@ -177,6 +177,10 @@ class InsertDates(unittest.TestCase):
         sub_total = float(sub_total)
         balance_due = float(balance_due)
 
+        self.assertEqual(balance_due, total_price)
+
+        self.assertEqual(sub_total, total_price)
+
         if balance_due == total_price and sub_total == total_price:
             print('OK')
 
