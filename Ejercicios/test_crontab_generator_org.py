@@ -38,8 +38,11 @@ class GenerateCrontab(unittest.TestCase):
         weekday_select.select_by_value('6')
         time.sleep(2)
 
+        command_to_execute = 'https://crontab-generator.org/'
         inputs = self.driver.find_element(By.ID, 'command')
-        inputs.send_keys('/usr/bin/php /home/username/public_html/cron.php')
+        inputs.send_keys(command_to_execute)
+
+        self.assertEqual(command_to_execute, inputs)
 
         buttom = self.driver.find_element(By.NAME, 'Generate')
         buttom.send_keys(Keys.ENTER)
