@@ -19,83 +19,82 @@ class GenerateCrontab(unittest.TestCase):
         list_months = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12')
         list_weekdays = ('0', '1', '2', '3', '4', '5', '6')
 
-        minutes = self.driver.find_element(By.NAME, 'selectMinutes[]')
-        minute_select = Select(minutes)
-        minute_select.select_by_value(list_minutes[5])
-        time.sleep(1)
+        for min in list_minutes:
+            minute = min
+            for hour in list_hours:
+                hour = hour
+                for day in list_days:
+                    day = day
+                    for month in list_months:
+                        month = month
+                        for weekd in list_weekdays:
+                            weekday = weekd
 
-        hours = self.driver.find_element(By.NAME, 'selectHours[]')
-        hour_select = Select(hours)
-        hour_select.select_by_value(list_hours[16])
+                            minutes = self.driver.find_element(By.NAME, 'selectMinutes[]')
+                            minute_select = Select(minutes)
+                            minute_select.deselect_all()
+                            minute_select.select_by_value(min)
 
-        days = self.driver.find_element(By.NAME, 'selectDays[]')
-        day_select = Select(days)
-        day_select.select_by_value(list_days[7])
+                            hours = self.driver.find_element(By.NAME, 'selectHours[]')
+                            hour_select = Select(hours)
+                            hour_select.deselect_all()
+                            hour_select.select_by_value(hour)
 
-        months = self.driver.find_element(By.NAME, 'selectMonths[]')
-        month_select = Select(months)
-        month_select.select_by_value(list_months[6])
+                            days = self.driver.find_element(By.NAME, 'selectDays[]')
+                            day_select = Select(days)
+                            day_select.deselect_all()
+                            day_select.select_by_value(day)
 
-        weekdays = self.driver.find_element(By.NAME, 'selectWeekdays[]')
-        weekday_select = Select(weekdays)
-        weekday_select.select_by_value(list_weekdays[4])
+                            months = self.driver.find_element(By.NAME, 'selectMonths[]')
+                            month_select = Select(months)
+                            month_select.deselect_all()
+                            month_select.select_by_value(month)
 
-        command_to_execute = 'prueba'
-        tub = '>/dev/null 2>&1'
+                            weekdays = self.driver.find_element(By.NAME, 'selectWeekdays[]')
+                            weekday_select = Select(weekdays)
+                            weekday_select.deselect_all()
+                            weekday_select.select_by_value(weekd)
+                            time.sleep(1)
 
-        minute = list_minutes[5]
-        hour = list_hours[16]
-        day = list_days[7]
-        month = list_months[6]
-        weekday = list_weekdays[4]
+                            command = '/home/username/Roxana/'
+                            tub = '>/dev/null 2>&1'
 
-        results1 = minute, hour, day, month, weekday, command_to_execute, tub
-        battery = ''
+                            results1 = minute, hour, day, month, weekday, command, tub
+                            battery = ''
 
-        for i in results1:
-            battery = battery + i + ' '
+                            for k in results1:
+                                battery = battery + k + ' '
 
-        battery = battery.strip()
+                            battery = battery.strip()
 
-        if command_to_execute != '':
+                            if command != '':
 
-            input_value = self.driver.find_element(By.ID, 'command')
-            input_value.send_keys(command_to_execute)
+                                input_value = self.driver.find_element(By.ID, 'command')
+                                input_value.click()
+                                input_value.clear()
+                                input_value.send_keys(command)
 
-            button_generate = self.driver.find_element(By.NAME, 'Generate')
-            button_generate.send_keys(Keys.RETURN)
+                                #self.driver.execute_script("document.getElementById('command').value = /home/username/Roxana/")
+                                time.sleep(1)
 
-            results = self.driver.find_element_by_xpath('//*[@id="generatedResult"]/pre')
-            results = results.text #59 0 8 1 0 /usr/bin/php /home/username/public_html/cron.php >/dev/null 2>&1
-            print(results)
+                                button_generate = self.driver.find_element(By.NAME, 'Generate')
+                                button_generate.send_keys(Keys.RETURN)
 
-            self.assertEqual(results, battery)
+                                results = self.driver.find_element_by_xpath('//*[@id="generatedResult"]/pre')
+                                results = results.text #59 0 8 1 0 /usr/bin/php /home/username/public_html/cron.php >/dev/null 2>&1
 
-        else:
+                                self.assertEqual(results, battery)
 
-            inputs = self.driver.find_element(By.ID, 'command')
-            inputs.send_keys(command_to_execute)
+                            elif command == '':
 
-            button_generate = self.driver.find_element(By.NAME, 'Generate')
-            button_generate.send_keys(Keys.ENTER)
-            button_generate = self.driver.switch_to_alert()
-            button_generate.accept()
-            time.sleep(2)
+                                inputs = self.driver.find_element(By.ID, 'command')
+                                inputs.send_keys(command)
 
-
-        time.sleep(2)
-        '''
-        a = 5
-        b = 8
-
-        self.assertEqual(a, b)
-
-        self.assertNotEqual(a, b)
-
-        c = False
-
-        self.assertTrue(c)
-        '''
+                                button_generate = self.driver.find_element(By.NAME, 'Generate')
+                                button_generate.send_keys(Keys.ENTER)
+                                button_generate = self.driver.switch_to_alert()
+                                button_generate.accept()
+                                continue
 
     def tearDown(self):
         self.driver.close()
