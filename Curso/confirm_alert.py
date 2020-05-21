@@ -15,6 +15,7 @@ class Confirm_Alert(unittest.TestCase):
         time.sleep(2)
         buttom_generate = self.driver.switch_to_alert()
         buttom_generate.accept()
+        #buttom_generate.dismiss() -- cuando los alert tienen solo un boton se pueden utilizar (accept y dismiss)
         time.sleep(3)
 
     def tearDown(self):
