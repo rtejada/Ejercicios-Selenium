@@ -1,5 +1,6 @@
 
 from selenium.webdriver.common.keys import Keys
+import time
 
 
 class RegisterNewPost:
@@ -30,31 +31,7 @@ class RegisterNewPost:
 
         intro_article = self.driver.find_element_by_xpath("//button[@type='button']")
         intro_article.send_keys(Keys.ENTER)
-
-        url = self.driver.find_element_by_link_text("MariPuri")
-        url = url.text
-        print(url)
+        time.sleep(2)
+        url = self.driver.current_url
 
         return url
-
-    def check_title(self):
-
-        home = self.driver.find_element_by_link_text('Home')
-        home.click()
-
-        global_feed = self.driver.find_element_by_link_text('Global Feed')
-        global_feed.click()
-
-        title = self.driver.find_element_by_link_text
-
-
-
-
-
-
-
-
-
-
-
-
