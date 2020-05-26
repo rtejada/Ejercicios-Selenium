@@ -6,7 +6,9 @@ class CheckPost:
         self.driver = driver
 
     def check_post(self, url):
-
+        self.driver.execute_script('window.open("");')
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.get(url)
         time.sleep(2)
 
