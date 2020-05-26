@@ -4,14 +4,15 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-import time
+from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
-from register_page import RegisterPage
+from user_registration import UserRegister
 from login_page import LoginPage
 from register_post import RegisterNewPost
 from check_post import CheckPost
 from user_profile import UserProfile
 from add_comment import AddComment
+
 
 class GenerateRealworld(unittest.TestCase):
 
@@ -28,26 +29,25 @@ class GenerateRealworld(unittest.TestCase):
                      'body': 'Hablando de mis pruebas', 'tags': 'solo son pruebas'}
 
         self.comment = 'Este es un comentario simple'
-
     '''
-    def test_register_user(self):
-        registration = RegisterPage(self.driver)
+    def register_user(self):
+        self.driver.get('https://react-redux.realworld.io/')
+        registration = UserRegister(self.driver)
         registration.user_registration('MariPuri', 'maripuri@gmail.com', 'maripuri2020')
     '''
-
-    def login_and_register(self):
+    def login_and_post(self):
 
         self.driver.get('https://react-redux.realworld.io/')
         login = LoginPage(self.driver)
         login.login_user('maripuri@gmail.com', 'maripuri2020')
-
-        time.sleep(2)
         post = RegisterNewPost(self.driver, self.post)
-        return post.new_post()
+        post.new_post()
+
+        return post.get_url()
 
     def test_a_check_post(self):
 
-        url = self.login_and_register()
+        url = self.login_and_post()
 
         title_article = (self.post['title'])
         body_Article = (self.post['body'])

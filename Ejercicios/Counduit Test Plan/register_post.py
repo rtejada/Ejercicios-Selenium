@@ -1,6 +1,11 @@
-
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import ElementNotVisibleException
+from selenium.common.exceptions import ElementNotSelectableException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class RegisterNewPost:
@@ -9,7 +14,20 @@ class RegisterNewPost:
 
         self.post = post
 
+    def get_url(self):
+
+        wait = WebDriverWait(self.driver, 10, poll_frequency=1,
+                             ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+        wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="main"]/div/div/div[1]/div/h1')))
+
+        return self.driver.current_url
+
     def new_post(self):
+
+        wait = WebDriverWait(self.driver, 10, poll_frequency=1,
+                             ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+        wait.until(EC.element_to_be_clickable((By.XPATH, "//a/i[@class = 'ion-compose']")))
+
         create_post = self.driver.find_element_by_xpath("//a/i[@class = 'ion-compose']")
         create_post.click()
 
@@ -31,7 +49,3 @@ class RegisterNewPost:
 
         intro_article = self.driver.find_element_by_xpath("//button[@type='button']")
         intro_article.send_keys(Keys.ENTER)
-        time.sleep(2)
-        url = self.driver.current_url
-
-        return url
