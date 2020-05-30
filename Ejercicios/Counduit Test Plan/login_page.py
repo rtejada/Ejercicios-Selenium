@@ -4,7 +4,6 @@ class LoginPage:
     def __init__(self, driver):
         self.driver = driver
 
-
     def login_user(self, mail, passw):
         sign_up = self.driver.find_element_by_link_text('Sign in')
         sign_up.click()

@@ -13,3 +13,5 @@ class DisplayElement(unittest.TestCase):
         time.sleep(4)
         print(display.is_displayed()) #Si carga el elemento revuelve un buleano True o False
         print(display.is_enabled()) #Si el elemento esta disponible devuelve True o False
+
+

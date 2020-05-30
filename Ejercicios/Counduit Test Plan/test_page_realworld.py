@@ -1,3 +1,4 @@
+import HtmlTestRunner
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -69,7 +70,10 @@ class GenerateRealworld(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
-
+'''
 if __name__ == 'main':
     unittest.main()
+'''
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='/home/roxana/Documentos/Programas_Selenium/Resultado'))
 
