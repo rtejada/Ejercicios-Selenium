@@ -22,4 +22,6 @@ class Realworld(unittest.TestCase):
         post = RealworldPost(self.driver)
         post.load()
         post.wait_button()
+        post.register_new_post()
+        post_url = post.get_url()
 
