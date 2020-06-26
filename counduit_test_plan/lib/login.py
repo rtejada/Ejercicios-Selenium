@@ -16,14 +16,15 @@ class Login:
         sign_up = self.driver.find_element_by_link_text(self.INIT_SESSION)
         sign_up.click()
 
-        email = self.driver.find_element(self.BUTTON_MAIL_LOCATOR)
+        email = self.driver.find_element(*self.BUTTON_MAIL_LOCATOR)
         email.click()
         email.send_keys(self.LOGIN)
 
-        password = self.driver.find_element(self.BUTTON_PASS_LOCATOR)
+        password = self.driver.find_element(*self.BUTTON_PASS_LOCATOR)
         password.click()
         password.send_keys(self.PASSW)
 
-        sign_in = self.driver.find_element(self.BUTTON_SUBMIT)
+        sign_in = self.driver.find_element(*self.BUTTON_SUBMIT)
         sign_in.click()
+        return self.driver.current_url
 

@@ -6,17 +6,18 @@ from datetime import datetime
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import ElementNotSelectableException
 
+
 class RealworldPost:
 
     URL = 'https://react-redux.realworld.io/'
 
     TIMESTAMP = datetime.timestamp(datetime.now())
-    TITLE = ''
+
     POST = {'title': 'Probando ' + str(TIMESTAMP), 'about': 'Se habla de probando probando',
                  'body': 'Hablando de mis pruebas', 'tags': 'solo son pruebas'}
     COMMENT = 'Comentario Simple'
 
-    BUTTON_WAIT_LOCATOR = (By.ID, "//a/i[@class = 'ion-compose']")
+    BUTTON_WAIT_LOCATOR = (By.XPATH, "//a/i[@class = 'ion-compose']")
     URL_VISIBILITY = (By.XPATH, '//*[@id="main"]/div/div/div[1]/div/h1')
     SELECTOR_CREATE_POST = (By.XPATH, "//a/i[@class = 'ion-compose']")
     SELECTOR_TITLE_POST = '//*[@id="main"]//fieldset/fieldset[1]/input'
@@ -25,22 +26,16 @@ class RealworldPost:
     SELECTOR_TAGS_ARTICLE_POST = "//input[@placeholder='Enter tags']"
     BUTTON_INTRO_ARTICLE_POST = "//button[@type='button']"
 
-
     def __init__(self, driver):
         self.driver = driver
 
-    def load(self):
-        self.driver.get(self.URL)        
-    
-
-
     def wait_button(self):
         wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.element_to_be_clickable((self.BUTTON_WAIT_LOCATOR)))
+        wait.until(EC.element_to_be_clickable(self.BUTTON_WAIT_LOCATOR))
 
     def register_new_post(self):
 
-        create_post = self.driver.find_element(self.SELECTOR_CREATE_POST)
+        create_post = self.driver.find_element(*self.SELECTOR_CREATE_POST)
         create_post.click()
 
         title_article = self.driver.find_element_by_xpath(self.SELECTOR_TITLE_POST)
@@ -61,11 +56,16 @@ class RealworldPost:
 
         intro_article = self.driver.find_element_by_xpath(self.BUTTON_INTRO_ARTICLE_POST)
         intro_article.send_keys(Keys.ENTER)
+        title = self.POST['title']
+        body = self.POST['body']
+
+        return title, body
 
     def get_url(self):
 
         wait = WebDriverWait(self.driver, 10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
-        wait.until(EC.visibility_of_element_located((self.URL_VISIBILITY)))
+        wait.until(EC.visibility_of_element_located(self.URL_VISIBILITY))
 
         return self.driver.current_url
+

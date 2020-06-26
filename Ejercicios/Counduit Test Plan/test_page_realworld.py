@@ -18,10 +18,11 @@ from add_comment import AddComment
 class GenerateRealworld(unittest.TestCase):
 
     def setUp(self):
-        options = Options()
-        options.add_argument("--incognito")
+        #options = Options()
+        #options.add_argument("--incognito")
 
-        self.driver = webdriver.Chrome(options=options)
+        #self.driver = webdriver.Chrome(options=options)
+        self.driver = webdriver.Chrome()
         now = datetime.now()
         timestamp = datetime.timestamp(now)
 

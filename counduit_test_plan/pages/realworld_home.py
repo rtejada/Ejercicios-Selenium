@@ -1,8 +1,5 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from lib.login import Login
+
 
 class RealworldHome:
 
@@ -16,6 +13,7 @@ class RealworldHome:
 
     def init_session(self):
         login = Login(self.driver)
-        login.login_user()
+        url_profile = login.login_user()
+        return url_profile
 
 
