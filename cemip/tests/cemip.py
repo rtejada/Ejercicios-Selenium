@@ -20,7 +20,7 @@ class CemipPOM(unittest.TestCase):
         
         home.load()
         home.press_button()
-        home.wait_button()
+        home.wait_element_visible()
         
         geo = CualEsMiIpGeo(self.driver)
         
@@ -29,6 +29,7 @@ class CemipPOM(unittest.TestCase):
         maxm = CualEsMiIpMaxMind(self.driver)
         
         maxm.load()
+        maxm.wait_element_visible()
         
         maxmip_data = maxm.get_data()
 

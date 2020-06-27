@@ -2,21 +2,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from lib.ip import IP
+from pages.cemip_base_page import CualEsMiIpBasePage
 
-class CualEsMiIpMaxMind:
+
+class CualEsMiIpMaxMind(CualEsMiIpBasePage):
 
     URL = 'https://www.maxmind.com/en/locate-my-ip-address'
     LOCATOR_WAIT = (By.XPATH, '//*[@id="geoip-demo-results-tbody"]/tr/td[1]')
     LOCATOR_COLUMN = (By.XPATH, '//*[@id="geoip-demo-results-tbody"]/tr/td')
 
-    def __init__(self, driver):
-        self.driver = driver
-
-    def load(self):
-        self.driver.get(self.URL)
-
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.visibility_of_element_located(self.LOCATOR_WAIT))
 
     def get_data(self):
 

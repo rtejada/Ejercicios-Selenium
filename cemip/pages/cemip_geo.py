@@ -1,17 +1,15 @@
 
 from selenium.webdriver.common.by import By
+from pages.cemip_base_page import CualEsMiIpBasePage
 
 from lib.ip import IP
 
-class CualEsMiIpGeo:
+
+class CualEsMiIpGeo(CualEsMiIpBasePage):
 
     LOCATOR_IP_ADDRESS = (By.ID, 'direccion-ip')
     LOCATOR_ROWS = (By.XPATH, '/html/body//div/table/tbody/tr')
     LOCATOR_COLS = (By.XPATH, '/html/body//div/table/tbody/tr[1]/td')
-
-    def __init__(self, driver):
-        self.driver = driver
-
 
     def get_data(self):
 
