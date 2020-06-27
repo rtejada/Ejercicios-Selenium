@@ -5,9 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import ElementNotSelectableException
+from pages.realworld_base_page import RealworldCounduitBasePage
 
-
-class RealworldPost:
+class RealworldPost(RealworldCounduitBasePage):
 
     URL = 'https://react-redux.realworld.io/'
 
@@ -23,7 +23,7 @@ class RealworldPost:
     SELECTOR_TITLE_POST = '//*[@id="main"]//fieldset/fieldset[1]/input'
     SELECTOR_ABOUT_ARTICLE_POST = '//*[@id="main"]//fieldset/fieldset[2]/input'
     SELECTOR_BODY_ARTICLE_POST = "//textarea[@class = 'form-control']"
-    SELECTOR_TAGS_ARTICLE_POST = "//input[@placeholder='Enter tags']"
+    SELECTOR_TAGS_ARTICLE_POST = (By.XPATH, "//input[@placeholder='Enter tags']")
     BUTTON_INTRO_ARTICLE_POST = "//button[@type='button']"
 
     def __init__(self, driver):
@@ -50,9 +50,7 @@ class RealworldPost:
         body_article.click()
         body_article.send_keys(self.POST['body'])
 
-        tags_article = self.driver.find_element_by_xpath(self.SELECTOR_TAGS_ARTICLE_POST)
-        tags_article.click()
-        tags_article.send_keys(self.POST['tags'])
+        self.fill_field(self.SELECTOR_TAGS_ARTICLE_POST, self.POST['tags'])
 
         intro_article = self.driver.find_element_by_xpath(self.BUTTON_INTRO_ARTICLE_POST)
         intro_article.send_keys(Keys.ENTER)
@@ -60,6 +58,7 @@ class RealworldPost:
         body = self.POST['body']
 
         return title, body
+
 
     def get_url(self):
 

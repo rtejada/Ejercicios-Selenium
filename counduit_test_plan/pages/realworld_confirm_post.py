@@ -1,16 +1,14 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from pages.realworld_base_page import RealworldCounduitBasePage
 
 
-class PostPage:
+class PostPage(RealworldCounduitBasePage):
 
-    BUTTON_WAIT_LOCATOR = (By.XPATH, '//*[@id="main"]//div[1]/div/h1')
+    WAIT_LOCATOR = (By.XPATH, '//*[@id="main"]//div[1]/div/h1')
     TITLE_POST = '//*[@id="main"]//div[1]/div/h1'
     BODY_POST = '//*[@id="main"]//div[2]/div[1]//div/p'
-
-    def __init__(self, driver):
-        self.driver = driver
 
     def open_window_of_post(self, url):
 
@@ -20,8 +18,8 @@ class PostPage:
         self.driver.get(url)
 
     def wait_button(self):
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.element_to_be_clickable(self.BUTTON_WAIT_LOCATOR))
+
+        self.wait_selector_clickable(self.WAIT_LOCATOR)
 
     def data_test(self):
 

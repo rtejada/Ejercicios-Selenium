@@ -1,15 +1,10 @@
 from lib.login import Login
+from pages.realworld_base_page import RealworldCounduitBasePage
 
 
-class RealworldHome:
+class RealworldHome(RealworldCounduitBasePage):
 
     URL = 'https://react-redux.realworld.io/'
-
-    def __init__(self, driver):
-        self.driver = driver
-
-    def load(self):
-        self.driver.get(self.URL)
 
     def init_session(self):
         login = Login(self.driver)

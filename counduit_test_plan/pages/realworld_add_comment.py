@@ -1,10 +1,9 @@
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from pages.realworld_base_page import RealworldCounduitBasePage
 
 
-class AddComment:
+class AddComment(RealworldCounduitBasePage):
 
     COMMENT = 'Este es un comentario simple'
     BUTTON_WAIT_LOCATOR_ONE = (By.XPATH, '//*[@id="main"]//div[1]/a/h1')
@@ -15,20 +14,15 @@ class AddComment:
     BUTTON_SENT_COMMENT = "//div/button[@type='submit']"
     GET_COMMENT = "//div/p[@class='card-text']"
 
-    def __init__(self, driver):
-        self.driver = driver
-
     def wait_button_one(self):
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.element_to_be_clickable(self.BUTTON_WAIT_LOCATOR_ONE))
+        self.wait_selector_clickable(self.BUTTON_WAIT_LOCATOR_ONE)
 
     def search_button_comment(self):
         go_comment = self.driver.find_element_by_xpath(self.GO_COMMENT)
         go_comment.click()
 
     def wait_button_two(self):
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.visibility_of_element_located(self.BUTTON_WAIT_LOCATOR_TWO))
+        self.wait_selector_visible(self.BUTTON_WAIT_LOCATOR_TWO)
 
     def add_comment(self):
         add_comment = self.driver.find_element_by_xpath(self.ADD_COMMENT)
@@ -39,8 +33,7 @@ class AddComment:
         sent_comment.send_keys(Keys.ENTER)
 
     def wait_button_three(self):
-        wait = WebDriverWait(self.driver, 10, poll_frequency=1)
-        wait.until(EC.visibility_of_element_located(self.BUTTON_WAIT_LOCATOR_THREE))
+        self.wait_selector_visible(self.BUTTON_WAIT_LOCATOR_THREE)
 
     def get_comment(self):
         get_comment = self.driver.find_element_by_xpath(self.GET_COMMENT)

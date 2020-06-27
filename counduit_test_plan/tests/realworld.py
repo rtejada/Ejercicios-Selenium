@@ -21,7 +21,7 @@ class Realworld(unittest.TestCase):
 
         home = RealworldHome(self.driver)
         home.load()
-        url_profile = home.init_session()
+        home.init_session()
 
         post = RealworldPost(self.driver)
         post.wait_button()
